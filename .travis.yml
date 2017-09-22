@@ -1,0 +1,16 @@
+os:
+    - linux
+    - osx
+language: go
+go:
+    - 1.8.x
+install:
+- go get -u github.com/go-playground/overalls
+- go get -u github.com/mattn/goveralls
+- go get -u ./...
+script: 
+- $GOPATH/bin/overalls -project=github.com/propervillain/moistpetal -covermode=atomic -ignore=.git,.github,vendor -debug -- -short -race -v
+- $GOPATH/bin/goveralls -coverprofile=overalls.coverprofile -service=travis-ci -repotoken $COVERALLS_TOKEN
+notifications:
+    email:
+    - dev@moistpetal.io
