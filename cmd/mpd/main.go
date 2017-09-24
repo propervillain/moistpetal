@@ -3,14 +3,13 @@ package main
 import (
 	"fmt"
 
+	"github.com/fatih/color"
 	"github.com/propervillain/moistpetal/subcmd"
-	"github.com/ttacon/chalk"
 )
 
 func main() {
 
 	// display banner
 	fmt.Printf(subcmd.Banner() + "\n")
-	b := chalk.Magenta.NewStyle().WithTextStyle(chalk.Bold)
-	fmt.Printf(b.Style(" + -- --={ mpd }\n\n"))
+	color.New(color.Bold).Printf(" + -- --={ mpd }\n\n")
 }

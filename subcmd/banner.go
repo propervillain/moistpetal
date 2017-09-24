@@ -1,8 +1,6 @@
 package subcmd
 
-import (
-	"github.com/ttacon/chalk"
-)
+import "github.com/fatih/color"
 
 // Standard welcome banner.
 func Banner() string {
@@ -15,17 +13,15 @@ func Banner() string {
 		" 8  8  8 `Yooo'  8  `YooP'  8  8YooP' `Yooo'  8  `YooP8  8\n" +
 		"                               8                          \n" +
 		"                               8                          \n"
-	s = chalk.Green.NewStyle().Style(s)
-	return s
+	return color.GreenString(s)
 }
 
 // Standard exit banner.
 func Farewell() string {
-	r := chalk.Red.NewStyle()
 	s := "" +
 		"     _ _  __                                   __  _ _    \n" +
 		"    ( | )/_/                                   \\_\\( | )   \n" +
-		" __( >O< )               " + r.Style(".Goodbye.") + "               ( >O< )__\n" +
+		" __( >O< )               " + color.RedString(".Goodbye.") + "               ( >O< )__\n" +
 		" \\_\\(_|_)                                         (_|_)/_/\n"
 	return s
 }
