@@ -16,7 +16,7 @@ package subcmd
 
 import "github.com/fatih/color"
 
-// Standard welcome banner.
+// Banner prints the standard moistpetal banner.
 func Banner() string {
 	s := "\n" +
 		"                 o          o                 o          8\n" +
@@ -30,7 +30,7 @@ func Banner() string {
 	return color.GreenString(s)
 }
 
-// Standard exit banner.
+// Farewell prints the standard moistpetal farewell message.
 func Farewell() string {
 	g := color.RedString(".Goodbye.")
 	s := "" +

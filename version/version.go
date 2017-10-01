@@ -18,21 +18,21 @@ package version
 
 import (
 	"fmt"
-	"runtime"
 	"time"
 )
 
 // These strings will be overwritten by an init function in
 // created by make_version.go during the release process.
 var (
-	MajorVersion int = 0
-	MinorVersion int = 1
-	PatchVersion int = 0
+	MajorVersion = 0
+	MinorVersion = 1
+	PatchVersion = 0
 	BuildTime    time.Time
-	CommitSHA    string = "dev"
-	TimeFormat   string = "02-Jan-06"
+	CommitSHA    = "dev"
+	TimeFormat   = "02-Jan-06"
 )
 
+// Version displays the moistpetal code version.
 func Version() string {
 	s := fmt.Sprintf("%d.%d.%d+%s (%s)",
 		MajorVersion,
@@ -40,18 +40,6 @@ func Version() string {
 		PatchVersion,
 		CommitSHA,
 		BuildTime.Format(TimeFormat),
-	)
-	return s
-}
-
-func BuildVersion() string {
-	s := fmt.Sprintf("%s version %d.%d.%d %s/%s",
-		"moistpetal",
-		MajorVersion,
-		MinorVersion,
-		PatchVersion,
-		runtime.GOOS,
-		runtime.GOARCH,
 	)
 	return s
 }

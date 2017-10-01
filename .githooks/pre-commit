@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+    against=HEAD
+else
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+# run unit tests
+go test ./... >/dev/null 2>&1
+if [ $? -ne 0 ]
+then
+    echo "Failed to run tests. Please check the output of"
+    echo "go test or run commit with --no-verify if you know"
+    echo "what you are doing."
+    exit 1
+fi
+
+# gofmt repo recursively
+gofmt -l -s -w .
+if [ $? -ne 0 ]; then exit 1; fi
+
+# run go vet against project root and packages
+go vet *.go
+if [ $? -ne 0 ]; then exit 1; fi 
+go vet ./...
+if [ $? -ne 0 ]; then exit 1; fi 
+
+# run golint against project root and packages
+golint *.go
+if [ $? -ne 0 ]; then exit 1; fi 
+golint ./...
+if [ $? -ne 0 ]; then exit 1; fi 
