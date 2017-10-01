@@ -14,7 +14,9 @@
 
 package subcmd
 
-import "github.com/fatih/color"
+import (
+	"github.com/fatih/color"
+)
 
 // Banner prints the standard moistpetal banner.
 func Banner() string {
