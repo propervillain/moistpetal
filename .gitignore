@@ -3,6 +3,8 @@
 ### Moistpetal ###
 cmd/mpconsole/mpconsole
 cmd/mpd/mpd
+*_override.go
+TODO
 
 ### Go ###
 # Binaries for programs and plugins
