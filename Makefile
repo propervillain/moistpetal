@@ -12,7 +12,9 @@ CMD = $(shell $(GO) list ./... | grep -v vendor | grep /cmd/)
 
 .PHONY: all dep update gen fmt vet lint test build install list profile coveralls clean
 
-all: fmt vet lint test build
+all: check build
+
+check: fmt vet lint test
 
 dep: $(GODEP)
 	@$(GODEP) ensure
@@ -65,11 +67,9 @@ list:
 	)
 
 profile: $(OVERALLS)
-	@$(foreach p,$(GOLIST), \
-		$(OVERALLS) -project=$(PKG) -covermode=atomic \
-			-ignore=.git,. github,vendor -debug \
-			-- -short -race -v \
-	)
+	$(OVERALLS) -project=$(PKG) -covermode=atomic \
+		-ignore=.git,.github,vendor -debug \
+		-- -short -race -v \
 
 coveralls: $(GOVERALLS)
 	$(GOVERALLS) -coverprofile=overalls.coverprofile -service=travis-ci -repotoken            $(COVERALLS_TOKEN)
