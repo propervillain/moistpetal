@@ -3,8 +3,8 @@
 [![Build Status](https://travis-ci.org/propervillain/moistpetal.svg?branch=master)](https://travis-ci.org/propervillain/moistpetal)
 [![Coveralls](https://coveralls.io/repos/github/propervillain/moistpetal/badge.svg)](https://coveralls.io/github/propervillain/moistpetal)
 [![Go Report Card](https://goreportcard.com/badge/github.com/propervillain/moistpetal)](https://goreportcard.com/report/github.com/propervillain/moistpetal)
-[![Developer Chat](https://img.shields.io/badge/gitter-dev_chat-46bc99.svg)](https://gitter.im/propervillain/moistpetal)
 [![GoDoc](https://godoc.org/github.com/propervillain/moistpetal?status.svg)](https://godoc.org/github.com/propervillain/moistpetal)
+[![Developer Chat](https://img.shields.io/badge/gitter-dev_chat-46bc99.svg)](https://gitter.im/propervillain/moistpetal)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat)](LICENSE)
 
 
