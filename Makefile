@@ -72,7 +72,7 @@ profile: $(OVERALLS)
 		-- -short -race -v \
 
 coveralls: $(GOVERALLS)
-	$(GOVERALLS) -coverprofile=overalls.coverprofile -service=travis-ci -repotoken            $(COVERALLS_TOKEN)
+	$(GOVERALLS) -coverprofile=overalls.coverprofile -service=travis-ci -repotoken $(COVERALLS_TOKEN)
 
 clean:
 	@$(foreach p,$(CMD), \
