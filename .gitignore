@@ -1,10 +1,12 @@
 # Created by https://www.gitignore.io
 
 ### Moistpetal ###
+TODO
 cmd/mpconsole/mpconsole
 cmd/mpd/mpd
+log/testdata
 *_override.go
-TODO
+*.log
 
 ### Go ###
 # Binaries for programs and plugins
