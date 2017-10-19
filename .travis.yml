@@ -12,3 +12,9 @@ script:
 notifications:
     email:
     - dev@moistpetal.io
+    webhooks:
+        urls:
+            - https://webhooks.gitter.im/e/f501b9d7e4d9bc8a6fda
+        on_success: change 
+        on_failure: always
+        on_start: never    
