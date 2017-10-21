@@ -100,6 +100,22 @@ func TestClean(t *testing.T) {
 	// add symbolic link test
 }
 
+// TestExists tests checking for existing files/directories.
+func TestExists(t *testing.T) {
+	if !path.Exists("path.go") {
+		t.Errorf("path.go exists but path.Exists() returned false")
+	}
+	if path.Exists("invalid.file") {
+		t.Errorf("invalid.file does not exist but path.Exists() returned true")
+	}
+	if !path.Exists("../path") {
+		t.Errorf("../path exists but path.Exists() returned false")
+	}
+	if path.Exists("../invalid") {
+		t.Errorf("../invalid does not exist but path.Exists() returned true")
+	}
+}
+
 func check(t *testing.T, actual string, expected string, desc string) {
 	if actual != expected {
 		t.Errorf("[%s]\ngot:\n  %q\nwant:\n  %q", desc, actual, expected)

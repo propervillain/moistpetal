@@ -107,6 +107,15 @@ func Clean(path string) string {
 	return path
 }
 
+// Exists returns whether the file/directory exists or not.
+func Exists(path string) bool {
+	_, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
 // HomeDir returns the current user's home directory.
 func HomeDir() string {
 
