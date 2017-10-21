@@ -59,7 +59,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "9419663f5a44be8b34ca85f08abc5fe1be11f8a3"
+  revision = "edd5e9b0879d13ee6970a50153d85b8fec9f7686"
 
 [[projects]]
   branch = "master"
