@@ -8,26 +8,5 @@ else
     against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-# run golang tools on project root
-gofmt -l -s -w *.go
-if [ $? -ne 0 ]; then exit 1; fi
-golint *.go
-if [ $? -ne 0 ]; then exit 1; fi
-
-# run golang tools on project packages
-st=0
-for pkg in $(go list ./... | grep -v /vendor/); do
-
-    echo "==> $pkg"
-    
-    go fmt $pkg
-    [ $? -ne 0 ] && st=1
-
-    go vet $pkg
-    [ $? -ne 0 ] && st=1
-
-    golint $pkg
-    [ $? -ne 0 ] && st=1
-
-done
-exit $st
+make clean
+make check

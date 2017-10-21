@@ -2,17 +2,17 @@ GO = go
 GOBIN = $(GOPATH)/bin
 GODEP = $(GOBIN)/dep
 GOLINT = $(GOBIN)/golint
-GOLIST = $(shell $(GO) list ./... | grep -v vendor)
+GOLIST = *.go $(shell $(GO) list ./... | grep -v vendor) 
 OVERALLS = $(GOBIN)/overalls
 GOVERALLS = $(GOBIN)/goveralls
 
 PKG = github.com/propervillain/moistpetal
 DIR = $(GOPATH)/src/$(PKG)
-CMD = $(shell $(GO) list ./... | grep -v vendor | grep /cmd/)
+CMD = $(shell $(GO) list ./... | grep -v vendor | grep /cmd)
 
 .PHONY: all dep update gen fmt vet lint test build install list profile coveralls clean
 
-all: check build
+all: gen check build
 
 check: fmt vet lint test
 
@@ -23,47 +23,55 @@ update: $(GODEP)
 	@$(GODEP) ensure -update
 
 gen:
+	@echo "[ go generate ]"
 	@$(foreach p,$(GOLIST), \
-		$(GO) generate $p; \
+		echo $p; \
+		$(GO) generate $p || exit 1; \
 	)
 
 fmt:
 	@echo "[ go fmt ]"
 	@$(foreach p,$(GOLIST), \
+		echo $p; \
 		$(GO) fmt $p; \
 	)
 
 vet:
 	@echo "[ go vet ]"
 	@$(foreach p,$(GOLIST), \
-		$(GO) vet $p; \
+		echo $p; \
+		$(GO) vet $p || exit 1;\
 	)
 
 lint: $(GOLINT)
 	@echo "[ golint ]"
 	@$(foreach p,$(GOLIST), \
+		echo $p; \
 		$(GOLINT) $p; \
 	)
 
 test: 
 	@$(foreach p,$(GOLIST), \
-		$(GO) test -short -race -v $p; \
+		$(GO) test -short -race -v $p || exit 1;\
 	)
 
 build: 
+	@echo "[ go build ]"
 	@$(foreach p,$(CMD), \
+		echo $p; \
 		$(GO) build $p; \
-		echo "build $p"; \
 	)
 
 install: 
+	@echo "[ go install ]"
 	@$(foreach p,$(CMD), \
-		echo "install $p"; \
+		echo $p; \
+		$(GO) install $p; \
 	)
 
 list:
 	@$(foreach p,$(GOLIST), \
-		echo "$p"; \
+		echo $p; \
 	)
 
 profile: $(OVERALLS)
@@ -76,7 +84,8 @@ coveralls: $(GOVERALLS)
 
 clean:
 	@$(foreach p,$(CMD), \
-		basename "$p" | xargs rm -f \
+		echo "rm -f" $(shell basename "$p"); \
+		basename "$p" | xargs rm -f; \
 	)
 	rm -rf ./log/testdata
 
