@@ -27,8 +27,8 @@ import (
 func StdFilename() string {
 	bin := os.Args[0]
 	return fmt.Sprintf("%s_%s.log",
+		time.Now().Format("2006-01-02_15:04:05"),
 		strings.TrimSuffix(filepath.Base(bin), filepath.Ext(bin)),
-		time.Now().Format("2006-01-02_15h04m05s"),
 	)
 }
 

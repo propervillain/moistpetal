@@ -64,6 +64,11 @@ func (lrw *logrusWriter) SetOutput(w io.Writer) {
 // Log implements Writer.
 func (lrw *logrusWriter) Log(level Level, fields Fields, msg string) {
 
+	// ignore if output writer is empty
+	if lrw.lr.Out == nil {
+		return
+	}
+
 	// construct logging context
 	var lr logrusLogger
 	if len(fields) > 0 {
