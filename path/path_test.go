@@ -102,6 +102,9 @@ func TestClean(t *testing.T) {
 
 // TestExists tests checking for existing files/directories.
 func TestExists(t *testing.T) {
+	if path.Exists("") {
+		t.Errorf("path.Exists(\"\") returned true")
+	}
 	if !path.Exists("path.go") {
 		t.Errorf("path.go exists but path.Exists() returned false")
 	}

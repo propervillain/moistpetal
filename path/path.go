@@ -16,7 +16,9 @@
 package path
 
 import (
+	"errors"
 	"os"
+	"os/user"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -119,22 +121,42 @@ func Exists(path string) bool {
 // HomeDir returns the current user's home directory.
 func HomeDir() string {
 
+	// create validation lambda function
+	valid := func(dir string) error {
+
+		fi, err := os.Stat(dir)
+		if err != nil {
+			return err
+		}
+
+		if !fi.IsDir() {
+			return errors.New("not a directory")
+		}
+
+		return nil
+	}
+
+	// query os for current user
+	if u, _ := user.Current(); u != nil && valid(u.HomeDir) == nil {
+		return u.HomeDir
+	}
+
 	// macOS, linux
-	if s := os.Getenv("HOME"); s != "" {
+	if s := os.Getenv("HOME"); valid(s) == nil {
 		return s
 	}
 
 	// windows (preferred)
-	if s := os.Getenv("USERPROFILE"); s != "" {
+	if s := os.Getenv("USERPROFILE"); valid(s) == nil {
 		return s
 	}
 
 	// windows
-	if s := os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH"); s != "" {
+	if s := os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH"); valid(s) == nil {
 		return s
 	}
 
-	return ""
+	panic("unable to locate user home directory")
 }
 
 // ProgramDir returns the program directory for the current OS.
